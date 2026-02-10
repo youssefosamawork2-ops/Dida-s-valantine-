@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Farida 🤍</title>
+
+<style>
+*{margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
+body{min-height:100vh; background:#f7f5f2; display:flex; justify-content:center; align-items:center; padding:20px;}
+.phone{width:360px; height:720px; background:#fff; border-radius:40px; box-shadow:0 30px 80px rgba(0,0,0,.15); overflow:hidden; position:relative;}
+.page{height:100%; display:none; flex-direction:column; justify-content:center; align-items:center; padding:30px; text-align:center; position:relative;}
+.page.active{display:flex;}
+button{padding:15px; border:none; border-radius:14px; background:#111; color:#fff; font-size:15px; cursor:pointer; margin-top:15px; flex:1;}
+.buttons{width:100%; margin-top:25px; display:flex; gap:10px;}
+.login input{width:100%; padding:15px; border-radius:14px; border:1px solid #e0e0e0; font-size:16px; margin-bottom:15px;}
+.love h2{font-size:28px;margin-bottom:10px}
+.name{font-size:24px;margin-bottom:20px;color:#777}
+.love p{font-size:16px;line-height:1.6;color:#444}
+.voice h2{font-size:26px;margin-bottom:15px}
+.voice audio{width:100%;margin-top:20px}
+.timer h2{font-size:24px;margin-bottom:20px}
+.timer-box{width:100%; background:#f7f5f2; border-radius:20px; padding:20px; margin-bottom:20px;}
+.timer-box h3{font-size:15px;color:#777;margin-bottom:10px;}
+.time{font-size:18px;font-weight:500;}
+.image-page img{width:100%; border-radius:20px; margin-bottom:20px;}
+.image-page p{font-size:17px; line-height:1.7; color:#444;}
+.heart{position:absolute; bottom:-20px; color:#e63946; animation:float 6s linear infinite; opacity:.7;}
+@keyframes float{from{transform:translateY(0);opacity:0} 50%{opacity:.8} to{transform:translateY(-800px);opacity:0}}
+.image-page .bg-icon{position:absolute; font-size:150px; color:rgba(230,57,70,0.1); top:50%; left:50%; transform:translate(-50%,-50%); z-index:1; animation:floatIcon 6s linear infinite; display:none;}
+@keyframes floatIcon{0%{transform:translate(-50%,0);} 50%{transform:translate(-50%,-20px);} 100%{transform:translate(-50%,0);}}
+.mute-btn{position:absolute; top:15px; left:15px; padding:8px 12px; border:none; border-radius:12px; background:#111; color:#fff; font-size:14px; cursor:pointer; z-index:10;}
+@media(max-width:420px){.phone{transform:scale(.85)}}
+@media(max-width:360px){.phone{transform:scale(.75)}}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<!-- Login -->
+<div class="page login active" id="login">
+  <h1>Enter your name</h1>
+  <input id="user" placeholder="username">
+  <div class="buttons"><button onclick="go()">Continue</button></div>
+</div>
+
+<!-- Love -->
+<div class="page love" id="love">
+  <h2>Happy Valentine’s Day</h2>
+  <div class="name">Farida</div>
+  <p>
+    I’m so grateful for your presence in my life, for your kindness, your energy, and the way you care.<br>
+    You and your eyes makes my life brighter.<br>
+    In every lifetime, I would still choose you.<br>
+    I hope our story lasts for the rest of our lives.<br>
+    Y+F=1 🤍<br>
+    You’re the cutest girl I’ve ever known, and I love you more than words can say 🤍
+  </p>
+  <div class="buttons">
+    <button onclick="show('login')">Back</button>
+    <button onclick="show('voice')">Next</button>
+  </div>
+</div>
+
+<!-- Voice -->
+<div class="page voice" id="voice">
+  <button class="mute-btn" onclick="toggleMute('voiceAudio', this)">Mute</button>
+  <h2>For You 🤍</h2>
+  <p>Listen to my voice…</p>
+  <audio id="voiceAudio" controls>
+    <source src="voice.m4a" type="audio/mp4">
+  </audio>
+  <div class="buttons">
+    <button onclick="show('love')">Back</button>
+    <button onclick="show('timer')">Next</button>
+  </div>
+</div>
+
+<!-- Timer -->
+<div class="page timer" id="timer">
+  <button class="mute-btn" onclick="toggleMute('bgMusicTimer', this)">Mute</button>
+  <h2>Our Story 🤍</h2>
+  <div class="timer-box">
+    <h3>The moment our story quietly began</h3>
+    <div class="time" id="time1"></div>
+  </div>
+  <div class="timer-box">
+    <h3>The day our hearts chose each other</h3>
+    <div class="time" id="time2"></div>
+  </div>
+  <div class="buttons">
+    <button onclick="show('voice')">Back</button>
+    <button onclick="show('image')">Next</button>
+  </div>
+  <audio id="bgMusicTimer" loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<!-- Image Page -->
+<div class="page image-page" id="image">
+  <img src="img/Screenshot_20260210_184246_Snapchat.jpg" alt="Us 🤍">
+  <p>
+    Hope from God to complete the story together 🤍<br>
+    ya didaaaa bahbkkkkkkkkkkk<br>
+    🤍 فعلا احلي ايامي واجمل سنين تتعاش جمبك يا اما بلاش
+  </p>
+  <div class="buttons">
+    <button onclick="show('timer')">Back</button>
+    <button onclick="show('love')">Restart</button>
+  </div>
+  <audio id="bgMusicImage" loop autoplay>
+    <source src="amr diab.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+</div>
+
+<script>
+let musicTimer = document.getElementById("bgMusicTimer");
+let musicImage = document.getElementById("bgMusicImage");
+let voiceAudio = document.getElementById("voiceAudio");
+
+/* navigation */
+function show(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  // stop all audio by default
+  voiceAudio.pause(); voiceAudio.currentTime=0;
+  musicTimer.pause(); musicTimer.currentTime=0;
+  musicImage.pause(); musicImage.currentTime=0;
+
+  if(id==='voice'){ voiceAudio.play().catch(e=>console.log("Autoplay blocked")) }
+  if(id==='timer'){ musicTimer.play().catch(e=>console.log("Autoplay blocked")) }
+  if(id==='image'){ musicImage.play().catch(e=>console.log("Autoplay blocked")) }
+}
+
+/* login */
+function go(){
+  let u=document.getElementById("user").value.toLowerCase().trim();
+  if(u==="farida"){
+    show("love");
+    hearts();
+  } else { alert("nope 🤍"); }
+}
+
+/* hearts animation */
+function hearts(){
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="♥";
+    h.style.left=Math.random()*100+"%";
+    h.style.fontSize=14+Math.random()*18+"px";
+    document.querySelector(".phone").appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },400);
+}
+
+/* timers */
+const firstTalk = new Date("2025-11-06T00:00:00");
+const fallInLove = new Date("2026-01-19T00:00:00");
+
+function calc(d,id){
+  let now = new Date();
+  let diff = now - d;
+  let days = Math.floor(diff/(1000*60*60*24));
+  let hours = Math.floor((diff/(1000*60*60))%24);
+  let mins = Math.floor((diff/(1000*60))%60);
+  let secs = Math.floor((diff/1000)%60);
+  document.getElementById(id).innerHTML = `${days} days • ${hours} hours • ${mins} minutes • ${secs} seconds`;
+}
+
+setInterval(()=>{
+  calc(firstTalk,"time1");
+  calc(fallInLove,"time2");
+},1000);
+
+/* mute/unmute */
+function toggleMute(id, btn){
+  let audio = document.getElementById(id);
+  if(audio.muted){ audio.muted=false; btn.textContent="Mute"; }
+  else { audio.muted=true; btn.textContent="Unmute"; }
+}
+</script>
+
+</body>
+</html>
